@@ -1,0 +1,40 @@
+import { PokemonGrid } from "@/app/pokemons/components/PokemonGrid";
+import { PokemonsResponse, SimplePokemon } from "@/app/pokemons/interfaces";
+import { notFound } from "next/navigation";
+
+const getPokemons = async (
+  limit = 20,
+  offset = 0,
+): Promise<SimplePokemon[]> => {
+  const data: PokemonsResponse = await fetch(
+    `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`,
+  ).then((res) => res.json());
+
+  const pokemons = data.results.map((pokemon) => {
+    return {
+      id: pokemon.url.split("/").at(-2)!,
+      name: pokemon.name,
+    };
+  });
+
+  // Error forzado 1 ....
+  // throw new Error("Esto es un error que no deberia de suceder");
+
+  // Error de next notFound
+  // throw notFound();
+
+  return pokemons;
+};
+
+export default async function PokemonsPage() {
+  const pokemons = await getPokemons(151);
+  return (
+    <div className="flex flex-col">
+      <span className="text-5xl my-2">
+        Listado de Pokemons <small>Estático</small>
+      </span>
+
+      <PokemonGrid pokemons={pokemons} />
+    </div>
+  );
+}
