@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SimplePokemon } from "../interfaces";
+import { SimplePokemon } from "..";
 import Image from "next/image";
 import { IoHeartOutline } from "react-icons/io5";
 

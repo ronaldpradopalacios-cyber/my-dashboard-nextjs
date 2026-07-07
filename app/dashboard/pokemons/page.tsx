@@ -1,5 +1,5 @@
 import { PokemonGrid } from "@/app/pokemons/components/PokemonGrid";
-import { PokemonsResponse, SimplePokemon } from "@/app/pokemons/interfaces";
+import { PokemonsResponse, SimplePokemon } from "@/app/pokemons";
 import { notFound } from "next/navigation";
 
 const getPokemons = async (
