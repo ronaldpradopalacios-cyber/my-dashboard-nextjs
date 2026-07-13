@@ -1,13 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/app/store";
+import {
+  addOne,
+  initCounterState,
+  substractOne,
+} from "@/app/store/counter/counterSlice";
+import { useEffect } from "react";
 
 interface Props {
-  value: number;
+  value?: number;
 }
 
 export const CartCounter = ({ value = 0 }: Props) => {
-  const [count, setCount] = useState(value);
+  const count = useAppSelector((state) => state.counter.count);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(initCounterState(value));
+  }, [dispatch, value]);
 
   return (
     <>
@@ -16,14 +27,14 @@ export const CartCounter = ({ value = 0 }: Props) => {
       <div className="flex">
         <button
           className="flex items-center justify-center p-2 rounded-xl bg-gray-900 text-white hover:bg-gray-600 transition-all w-25 mr-2"
-          onClick={() => setCount(count > 0 ? count - 1 : 0)}
+          onClick={() => dispatch(substractOne())}
         >
           -1
         </button>
 
         <button
           className="flex items-center justify-center p-2 rounded-xl bg-gray-900 text-white hover:bg-gray-600 transition-all w-25 mr-2"
-          onClick={() => setCount(count + 1)}
+          onClick={() => dispatch(addOne())}
         >
           +1
         </button>
