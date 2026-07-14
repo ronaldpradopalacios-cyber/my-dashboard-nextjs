@@ -14,7 +14,16 @@ interface PokemonsFavoriteStates {
   [key: string]: SimplePokemon;
 }
 
+const getInitialState = (): PokemonsFavoriteStates => {
+  const favorites = JSON.parse(
+    localStorage.getItem("favorite-pokemons") ?? "{}",
+  );
+
+  return favorites;
+};
+
 const initialState: PokemonsFavoriteStates = {
+  ...getInitialState(),
   // "1": {
   //   id: "1",
   //   name: "bulbasaur",
@@ -40,11 +49,13 @@ const favoritePokemonsSlice = createSlice({
       // Si existe ese pokemon como favorito, lo elimino (hago NO FAVORITO)
       if (!!state[id]) {
         delete state[id];
-        return;
+        // return;
+      } else {
+        // Si no existe ese pokemon como favorito, lo agrego como FAVORITO
+        state[id] = pokemon;
       }
 
-      // Si no existe ese pokemon como favorito, lo agrego como FAVORITO
-      state[id] = pokemon;
+      localStorage.setItem("favorite-pokemons", JSON.stringify(state));
     },
   },
 });
