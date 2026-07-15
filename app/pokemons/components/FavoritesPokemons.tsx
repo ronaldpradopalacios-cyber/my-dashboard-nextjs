@@ -1,20 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
 import { PokemonGrid } from "./PokemonGrid";
 import { useAppSelector } from "@/app/store";
 import { IoHeartOutline } from "react-icons/io5";
 
 export const FavoritesPokemons = () => {
   const favoritesPokemons = useAppSelector((state) =>
-    Object.values(state.pokemons),
+    Object.values(state.pokemons.favorites),
   );
-  const [pokemons, setPokemons] = useState(favoritesPokemons);
 
   return (
     <>
-      {pokemons.length > 0 ? (
-        <PokemonGrid pokemons={pokemons} />
+      {favoritesPokemons.length > 0 ? (
+        <PokemonGrid pokemons={favoritesPokemons} />
       ) : (
         <NoFavorites />
       )}

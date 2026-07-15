@@ -1,11 +1,4 @@
-import { PokemonGrid } from "@/app/pokemons/components/PokemonGrid";
-import {
-  FavoritesPokemons,
-  PokemonsResponse,
-  SimplePokemon,
-} from "@/app/pokemons";
-import { notFound } from "next/navigation";
-import { IoHeartOutline } from "react-icons/io5";
+import { FavoritesPokemons } from "@/app/pokemons";
 
 export const metadata = {
   title: "Favoritos",
@@ -19,7 +12,6 @@ export default async function PokemonsPage() {
         Pokemons favoritos <small className="text-blue-500">Global State</small>
       </span>
 
-      {/* <PokemonGrid pokemons={[]} /> */}
       <FavoritesPokemons />
     </div>
   );
